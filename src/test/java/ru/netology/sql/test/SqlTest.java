@@ -24,19 +24,17 @@ public class SqlTest {
 
     @Test
     public void shouldCheckValidCode() {
-
         var user = DataHelper.getUser();
         var verificationPage = LoginPage.validLogin(user);
         var verificationCode = DataHelper.getVerificationCode();
-        var codeOfUser = VerificationPage.validCode(verificationCode);
+        verificationPage = verificationPage.validCode(verificationCode);
     }
 
     @Test
     public void shouldCheckInvalidCode() {
-
         var user = DataHelper.getUser();
         var verificationPage = LoginPage.validLogin(user);
         var verificationCode = DataHelper.wrongCode();
-        var codeOfUser = VerificationPage.invalidCode(verificationCode);
+        verificationPage = verificationPage.invalidCode(verificationCode);
     }
 }
