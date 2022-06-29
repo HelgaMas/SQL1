@@ -12,25 +12,19 @@ public class VerificationPage {
     private SelenideElement pageOfCode = $(withText("Необходимо подтверждение"));
     private SelenideElement codeInput = $("[data-test-id=code] input");
     private SelenideElement verifyButton = $("[data-test-id=action-verify]");
-    private SelenideElement nextPage = $("[data-test-id=dashboard]");
     private SelenideElement notification = $("[data-test-id=error-notification]");
 
-    public VerificationPage getAnyCode(DataHelper.VerificationCode code) {
+
+    public DashboardPage getAnyCode(DataHelper.VerificationCode code) {
         pageOfCode.shouldBe(Condition.visible);
         codeInput.setValue(String.valueOf(code));
         verifyButton.click();
-        return new VerificationPage();
+        return new DashboardPage();
     }
 
-    public VerificationPage validCode(DataHelper.VerificationCode code) {
-        getAnyCode(code);
-        nextPage.shouldBe(Condition.text(" Личный кабинет"));
-        return new VerificationPage();
-    }
-
-    public VerificationPage invalidCode(DataHelper.VerificationCode wrongCode) {
+    public void invalidCode(DataHelper.VerificationCode wrongCode) {
         getAnyCode(wrongCode);
         notification.shouldHave(Condition.text("Неверно указан код"));
-        return new VerificationPage();
+        notification.shouldBe(Condition.visible);
     }
 }

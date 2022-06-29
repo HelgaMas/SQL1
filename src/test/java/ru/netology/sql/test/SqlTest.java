@@ -1,12 +1,11 @@
 package ru.netology.sql.test;
 
 import org.junit.jupiter.api.AfterAll;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.sql.data.DataHelper;
+import ru.netology.sql.page.DashboardPage;
 import ru.netology.sql.page.LoginPage;
-import ru.netology.sql.page.VerificationPage;
 
 import static com.codeborne.selenide.Selenide.open;
 
@@ -27,7 +26,8 @@ public class SqlTest {
         var user = DataHelper.getUser();
         var verificationPage = LoginPage.validLogin(user);
         var verificationCode = DataHelper.getVerificationCode();
-        verificationPage = verificationPage.validCode(verificationCode);
+        verificationPage.getAnyCode(verificationCode);
+        var dashboardPage = DashboardPage.personalAccount();
     }
 
     @Test
@@ -35,6 +35,6 @@ public class SqlTest {
         var user = DataHelper.getUser();
         var verificationPage = LoginPage.validLogin(user);
         var verificationCode = DataHelper.wrongCode();
-        verificationPage = verificationPage.invalidCode(verificationCode);
+        verificationPage.invalidCode(verificationCode);
     }
 }
